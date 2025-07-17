@@ -36,7 +36,6 @@ export const getTokenBalanceMap = async ({
       return {
         ...acc,
         [getAddress(address)]: result ?? 0n,
-        [address.toLowerCase()]: result ?? 0n,
       }
     },
     {
