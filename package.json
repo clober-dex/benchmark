@@ -18,6 +18,7 @@
   "dependencies": {
     "viem": "^2.32.0",
     "@clober/v2-sdk": "^1.0.0-rc.55",
-    "bignumber.js": "^9.1.2"
+    "bignumber.js": "^9.1.2",
+    "@kuru-labs/kuru-sdk": "^0.0.61"
   }
 }

@@ -11,7 +11,9 @@ export const getTokenBalanceMap = async ({
   publicClient: PublicClient
   tokenAddresses: `0x${string}`[]
   userAddress: `0x${string}`
-}) => {
+}): Promise<{
+  [address: `0x${string}`]: bigint
+}> => {
   const uniqueTokenAddresses = tokenAddresses.filter(
     (address, index, self) =>
       address !== zeroAddress && isAddressEqual(address, self[index]),

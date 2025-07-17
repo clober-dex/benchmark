@@ -8,6 +8,7 @@ import {
 } from './constants.ts'
 import { CloberGasEstimator } from './gas-simulator/clober.ts'
 import { CrystalGasEstimator } from './gas-simulator/crystal.ts'
+import { KuruGasEstimator } from './gas-simulator/kuru.ts'
 
 const main = async () => {
   const N = process.env.N ? parseInt(process.env.N) : 10
@@ -40,6 +41,13 @@ const main = async () => {
   await crystalGasEstimator.clearOrderBook()
   await crystalGasEstimator.placeLimitBidsAtSamePrice(N)
   await crystalGasEstimator.takeAllOrders(N)
+
+  // 3. Kuru
+  const kuruGasEstimator = new KuruGasEstimator()
+  await kuruGasEstimator.initialize()
+  await kuruGasEstimator.maxApprove()
+  await kuruGasEstimator.placeLimitBidsAtSamePrice(N)
+  await kuruGasEstimator.takeAllOrders(N)
 }
 
 main()
