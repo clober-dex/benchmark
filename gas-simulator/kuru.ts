@@ -146,8 +146,6 @@ export class KuruGasEstimator extends GasEstimator {
     console.log(`[${this.constructor.name}] Initialized.`)
   }
 
-  public async clearOrderBook(): Promise<void> {}
-
   public async placeLimitBidsAtSamePrice(n: number): Promise<void> {
     const orderBook = await OrderBook.getL2OrderBook(
       this.provider!,
