@@ -16,6 +16,8 @@
     "@viem/anvil": "^0.0.9"
   },
   "dependencies": {
-    "viem": "^2.32.0"
+    "viem": "^2.32.0",
+    "@clober/v2-sdk": "^1.0.0-rc.55",
+    "bignumber.js": "^9.1.2"
   }
 }
