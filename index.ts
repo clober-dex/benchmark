@@ -7,6 +7,7 @@ import {
   PORT,
 } from './constants.ts'
 import { CloberGasEstimator } from './gas-simulator/clober.ts'
+import { CrystalGasEstimator } from './gas-simulator/crystal.ts'
 
 const main = async () => {
   const N = process.env.N ? parseInt(process.env.N) : 10
@@ -28,12 +29,17 @@ const main = async () => {
 
   // 1. Clober
   const cloberGasEstimator = new CloberGasEstimator()
-  await cloberGasEstimator.maxApprove(
-    '0x08feDaACe14EB141E51282441b05182519D853D1',
-  )
+  await cloberGasEstimator.maxApprove()
   await cloberGasEstimator.clearOrderBook()
   await cloberGasEstimator.placeLimitBidsAtSamePrice(N)
   await cloberGasEstimator.takeAllOrders(N)
+
+  // 2. Crystal
+  const crystalGasEstimator = new CrystalGasEstimator()
+  await crystalGasEstimator.maxApprove()
+  await crystalGasEstimator.clearOrderBook()
+  await crystalGasEstimator.placeLimitBidsAtSamePrice(N)
+  await crystalGasEstimator.takeAllOrders(N)
 }
 
 main()

@@ -8,12 +8,9 @@ import { saveGasUsedResult } from '../utils/db.ts'
 import { GasEstimator } from './index.ts'
 
 export class CloberGasEstimator extends GasEstimator {
+  contract = getAddress('0x08feDaACe14EB141E51282441b05182519D853D1')
   baseToken = getAddress('0xf817257fed379853cDe0fa4F97AB987181B1E5Ea')
   quoteToken = getAddress('0x88b8E2161DEDC77EF4ab7585569D2415a1C1055D')
-
-  constructor() {
-    super()
-  }
 
   public async clearOrderBook(): Promise<void> {
     await marketOrder({
@@ -94,10 +91,10 @@ export class CloberGasEstimator extends GasEstimator {
         totalGasUsed += BigInt(receipt.gasUsed)
       })
     }
-    const gasUsed = new BigNumber(totalGasUsed.toString())
-      .dividedBy(n)
-      .toFixed(0)
-    saveGasUsedResult({ alias: `clober-make-${n}`, gasUsed })
+    saveGasUsedResult({
+      alias: `clober-make-${n}`,
+      gasUsed: new BigNumber(totalGasUsed.toString()).dividedBy(n).toFixed(0),
+    })
   }
 
   public async takeAllOrders(n: number): Promise<void> {

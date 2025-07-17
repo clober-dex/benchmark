@@ -10,6 +10,7 @@ import { FORKED_CHAIN, PORT, WHALE_WALLET } from '../constants.ts'
 import { maxApproveToken } from '../utils/allowance.ts'
 
 export class GasEstimator {
+  contract: `0x${string}` | null = null
   baseToken: `0x${string}` | null = null
   quoteToken: `0x${string}` | null = null
 
@@ -39,15 +40,14 @@ export class GasEstimator {
 
   /**
    * Approves the maximum amount for multiple token addresses to a specified spender address.
-   * @param spenderAddress
    */
-  public async maxApprove(spenderAddress: `0x${string}`): Promise<void> {
+  public async maxApprove(): Promise<void> {
     for (const tokenAddress of [this.baseToken, this.quoteToken].filter(
       (token): token is `0x${string}` => token !== null,
     )) {
       await maxApproveToken({
         tokenAddress: tokenAddress!,
-        spender: spenderAddress,
+        spender: this.contract!,
         walletClient: this.walletClient,
       }).then((hash) => this.publicClient.waitForTransactionReceipt({ hash }))
     }
