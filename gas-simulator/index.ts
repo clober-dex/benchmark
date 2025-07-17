@@ -65,8 +65,8 @@ export class GasEstimator {
    * Places multiple limit bid orders on the order book.
    * @param n - The number of limit bid orders to place
    */
-  public async placeMultipleLimitBids(n: number): Promise<void> {
-    throw new Error('Method not implemented.')
+  public async placeLimitBidsAtSamePrice(n: number): Promise<void> {
+    throw new Error(`Method not implemented. ${n}`)
   }
 
   /**
@@ -74,6 +74,6 @@ export class GasEstimator {
    * This simulates taking liquidity from the book.
    */
   public async takeAllOrders(n: number): Promise<void> {
-    throw new Error('Method not implemented.', n)
+    throw new Error(`Method not implemented. ${n}`)
   }
 }

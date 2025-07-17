@@ -66,7 +66,7 @@ export class CloberGasEstimator extends GasEstimator {
     console.log(`[${this.constructor.name}] Order book cleared.`)
   }
 
-  public async placeMultipleLimitBids(n: number): Promise<void> {
+  public async placeLimitBidsAtSamePrice(n: number): Promise<void> {
     console.log(`[${this.constructor.name}] Placing ${n} limit bids...`)
     let totalGasUsed = 0n
     for (let i = 0; i < n; i++) {

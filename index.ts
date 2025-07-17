@@ -32,7 +32,7 @@ const main = async () => {
     '0x08feDaACe14EB141E51282441b05182519D853D1',
   )
   await cloberGasEstimator.clearOrderBook()
-  await cloberGasEstimator.placeMultipleLimitBids(N)
+  await cloberGasEstimator.placeLimitBidsAtSamePrice(N)
   await cloberGasEstimator.takeAllOrders(N)
 }
 
