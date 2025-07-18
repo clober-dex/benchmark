@@ -48,8 +48,8 @@ for dex, results in data.items():
     gas_values = [results[c] for c in counts]
     plt.plot(counts, gas_values, marker='o', label=dex)
 
-plt.title("Gas Usage vs Take Count by DEX")
-plt.xlabel("Take Count")
+plt.title("Gas Usage vs Number of Taker Orders per Price Tick")
+plt.xlabel("Number of Matched Orders")
 plt.ylabel("Gas Usage")
 plt.xticks(xticks)
 plt.grid(True)

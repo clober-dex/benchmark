@@ -1,10 +1,6 @@
 # Gas Usage Benchmark for Take Operations
 
-This benchmark measures the gas usage when taking multiple orders in a single tick across different DEX implementations.
-
-## 📊 Results
-
-Gas usage for **take operations** after placing `N` orders in the same tick:
+This benchmark measures the gas cost of executing a taker order that matches against N maker orders resting at the same price level.
 
 | DEX                                  | N = 1   | N = 10  | N = 100  |
 |--------------------------------------|---------|---------|----------|
@@ -14,7 +10,18 @@ Gas usage for **take operations** after placing `N` orders in the same tick:
 
 ![result](result.png)
 
-> All values represent total gas used during a take operation after placing `N` limit orders in the same tick.
+As illustrated in the table and the chart below, Clober’s gas usage remains flat regardless of the number of maker orders matched at the same price tick. This is due to Clober’s architectural design, which guarantees O(1) gas complexity for take operations.
+
+By contrast, other DEX implementations show linear or worse growth in gas cost as the number of matched maker orders increases.
+
+This difference is more than just a performance optimization:
+> Clober ensures consistently low execution costs even in realistic market environments, where liquidity is fragmented across many small maker orders submitted by a wide range of participants.
+
+Such fragmented liquidity patterns are common in both traditional and DeFi markets. Without architecture designed for this reality, takers face unpredictable and rising costs. Clober's design avoids this by making gas usage independent of the number of matches.
+
+The core of this efficiency lies in Clober’s custom-built matching engine, LOBSTER, which is designed to operate under strict gas constraints while maintaining high throughput and deterministic performance.
+
+[Understanding LOBSTER: A gas-efficient Onchain Order Book Mechanism](https://blog.monad.xyz/blog/understanding-lobster)
 
 ## 🚀 How to Run
 
