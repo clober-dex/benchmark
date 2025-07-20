@@ -1,8 +1,6 @@
 import type { PublicClient } from 'viem'
 import { erc20Abi, getAddress, isAddressEqual, zeroAddress } from 'viem'
 
-import { FORKED_CHAIN } from '../constants.ts'
-
 export const getTokenBalanceMap = async ({
   publicClient,
   tokenAddresses,
@@ -21,7 +19,7 @@ export const getTokenBalanceMap = async ({
   const [results, balance] = await Promise.all([
     publicClient.multicall({
       contracts: uniqueTokenAddresses.map((address) => ({
-        chainId: FORKED_CHAIN.id,
+        chainId: publicClient.chain?.id!,
         address,
         abi: erc20Abi,
         functionName: 'balanceOf',

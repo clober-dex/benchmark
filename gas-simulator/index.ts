@@ -5,8 +5,8 @@ import {
   createWalletClient,
   http,
 } from 'viem'
+import type { Chain } from 'viem/chains'
 
-import { FORKED_CHAIN, PORT, WHALE_WALLET } from '../constants.ts'
 import { maxApproveToken } from '../utils/allowance.ts'
 
 export class GasEstimator {
@@ -18,23 +18,31 @@ export class GasEstimator {
   testClient: TestClient
   walletClient: WalletClient
 
-  constructor() {
+  constructor({
+    chain,
+    port,
+    whaleWallet,
+  }: {
+    chain: Chain
+    port: number
+    whaleWallet: `0x${string}`
+  }) {
     const alias = BigInt(
       `0x${Buffer.from(this.constructor.name, 'utf8').toString('hex')}`,
     ).toString(10)
     this.publicClient = createPublicClient({
-      chain: FORKED_CHAIN,
-      transport: http(`http://127.0.0.1:${PORT}/${alias}`),
+      chain,
+      transport: http(`http://127.0.0.1:${port}/${alias}`),
     })
     this.testClient = createTestClient({
-      chain: FORKED_CHAIN,
+      chain,
       mode: 'anvil',
-      transport: http(`http://127.0.0.1:${PORT}/${alias}`),
+      transport: http(`http://127.0.0.1:${port}/${alias}`),
     })
     this.walletClient = createWalletClient({
-      chain: FORKED_CHAIN,
-      account: WHALE_WALLET,
-      transport: http(`http://127.0.0.1:${PORT}/${alias}`),
+      chain,
+      account: whaleWallet,
+      transport: http(`http://127.0.0.1:${port}/${alias}`),
     })
   }
 
