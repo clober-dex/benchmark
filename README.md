@@ -34,7 +34,7 @@ bun i
 2. Run benchmark with desired order count:
 
 ```bash
-N=100 bun run index.ts
+N=100 bun run monad-testnet.ts
 ```
 
 Replace `100` with any number to test with a different number of orders.
