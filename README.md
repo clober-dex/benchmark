@@ -2,11 +2,12 @@
 
 This benchmark measures the gas cost of executing a taker order that matches against N maker orders resting at the same price level.
 
-| DEX                                  | N = 1   | N = 10  | N = 100  |
-|--------------------------------------|---------|---------|----------|
-| [Clober](https://app.clober.io/)     | 153,941 | 153,941 | 153,941  |
-| [Crystal](https://crystal.exchange/) | 143,854 | 228,627 | 1,264,872|
-| [Kuru](https://www.kuru.io/)         | 143,738 | 287,695 | 3,925,232|
+| DEX                                  | N = 1   | N = 10  | N = 100   |
+|--------------------------------------|---------|---------|-----------|
+| [Clober](https://app.clober.io/)     | 153,941 | 153,941 | 153,941   |
+| [Crystal](https://crystal.exchange/) | 143,854 | 228,627 | 1,264,872 |
+| [Kuru](https://www.kuru.io/)         | 143,738 | 287,695 | 3,925,232 |
+| [GTE](https://gte.xyz/)            | 217,158 | 556,155 | 4,081,260 |
 
 ![result](result.png)
 
