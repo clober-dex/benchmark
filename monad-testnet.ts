@@ -7,23 +7,13 @@ import { KuruGasEstimator } from './gas-simulator/kuru.ts'
 
 const PORT = 8545
 
-const FORKED_CHAIN: Chain = {
-  ...monadTestnet,
-  rpcUrls: {
-    default: {
-      http: [`http://127.0.0.1:${PORT}`],
-    },
-    public: {
-      http: [`http://127.0.0.1:${PORT}`],
-    },
-  },
-}
+const CHAIN: Chain = monadTestnet
 
 const main = async () => {
   const N = process.env.N ? parseInt(process.env.N) : 10
   await startProxy({
     options: {
-      chainId: FORKED_CHAIN.id,
+      chainId: CHAIN.id,
       forkUrl:
         'https://proud-tiniest-flower.monad-testnet.quiknode.pro/a4ebe00fca2e7bf01201f3b0f7fe2f0077c52a36',
       forkBlockNumber: 26608965,
@@ -34,13 +24,11 @@ const main = async () => {
     },
     port: PORT,
   })
-  console.log(
-    `Anvil proxy started on port ${PORT} with chain ID ${FORKED_CHAIN.id}`,
-  )
+  console.log(`Anvil proxy started on port ${PORT} with chain ID ${CHAIN.id}`)
 
   // 1. Clober
   const cloberGasEstimator = new CloberGasEstimator({
-    chain: FORKED_CHAIN,
+    chain: CHAIN,
     port: PORT,
     whaleWallet: '0xFA735CcA8424e4eF30980653bf9015331d9929dB',
   })
@@ -51,7 +39,7 @@ const main = async () => {
 
   // 2. Crystal
   const crystalGasEstimator = new CrystalGasEstimator({
-    chain: FORKED_CHAIN,
+    chain: CHAIN,
     port: PORT,
     whaleWallet: '0xFA735CcA8424e4eF30980653bf9015331d9929dB',
   })
@@ -62,14 +50,16 @@ const main = async () => {
 
   // 3. Kuru
   const kuruGasEstimator = new KuruGasEstimator({
-    chain: FORKED_CHAIN,
+    chain: CHAIN,
     port: PORT,
     whaleWallet: '0xFA735CcA8424e4eF30980653bf9015331d9929dB',
   })
-  await kuruGasEstimator.initialize()
+  // await kuruGasEstimator.initialize()
   await kuruGasEstimator.maxApprove()
   await kuruGasEstimator.placeLimitBidsAtSamePrice(N)
   await kuruGasEstimator.takeAllOrders(N)
+
+  console.log(`All gas estimators completed for ${N} orders.`)
 }
 
 main()
