@@ -1,4 +1,4 @@
-# Gas Usage Benchmark for Take Operations
+# On-Chain CLOB Benchmark: Matching Engine Gas Efficiency
 
 This benchmark measures the gas cost of executing a taker order that matches against N maker orders resting at the same price level.
 
